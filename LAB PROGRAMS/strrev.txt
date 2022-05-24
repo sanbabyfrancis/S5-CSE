@@ -1,0 +1,161 @@
+/****************************************************************************************************/
+
+/*           NAME     : SAN BABY FRANCIS
+
+/*           CLASS    : S5 CSE A
+
+/*           ROLL NO  : 52
+
+/*           DATE     : 25/2/2022
+
+/*
+
+/*                                         REVERSE A STRING
+/****************************************************************************************************/
+PROGRAM
+
+DATA SEGMENT  
+
+    MSG1 DB  0AH,0DH,"ENTER THE STRING:$"
+
+    MSG2 DB  0AH,0DH,"STING ENTERED :$"
+
+    STR DB 06 DUP (?)  
+
+  
+
+    DATA ENDS
+
+CODE SEGMENT
+
+    ASSUME CS:CODE,DS:DATA
+
+    START:   
+
+    
+
+    MOV AX,DATA
+
+    MOV DS,AX
+
+    
+
+    MOV AH,09H
+
+    LEA DX,MSG1
+
+    INT 21H
+
+    
+
+    LEA SI,STR   
+
+    MOV CX,0000H
+
+    
+
+FIRST:     
+
+    
+
+    MOV AH,01H 
+
+    INT 21H 
+
+    
+
+    
+
+     
+
+    CMP AL,0DH 
+
+    
+
+    JZ  THIRD
+
+    
+
+    MOV [SI],AL
+
+    INC SI
+
+    INC CX
+
+    JNZ FIRST
+
+    
+
+    
+
+THIRD: 
+
+    LEA DX,MSG2
+
+    MOV AH,09H
+
+    INT 21H 
+
+    
+
+    
+
+    LEA SI,STR 
+
+    DEC CX
+
+    ADD SI,CX 
+
+    INC CX
+
+    
+
+SECOND: 
+
+    
+
+  
+
+   
+
+    MOV DX,[SI]
+
+     
+
+    MOV AH,02H
+
+          
+
+    INT 21H
+
+    DEC SI
+
+    DEC CL  
+
+    CMP CL,00H
+
+    JZ FORTH
+
+    JNZ SECOND
+
+    
+
+    FORTH: MOV AH,4CH
+
+    INT 21H
+
+    
+
+    
+
+CODE ENDS
+
+END START
+
+
+
+OUTPUT
+
+ENTER THE STRING: processor
+
+STRING ENTERED: rossecorp

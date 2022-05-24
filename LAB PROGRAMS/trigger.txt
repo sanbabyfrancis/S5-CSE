@@ -1,0 +1,46 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> PROGRAM TO IMPLEMENT TRIGGER
+
+>> PROGRAM
+***********************************************************************************
+SQL> create table product_master005(pno number(15), description varchar(10), pp number(5),
+     qoh number(5),reorder number(5),sp number(5),cp number(5));
+
+Table created.
+
+SQL> create or replace trigger PRO_TRIG
+  2  before insert or update of QOH on  PRODUCT_MASTER005
+  3  for each row
+  4  declare
+  5  a number(10);
+  6  begin
+  7  a:=:new.QOH;
+  8  if(a<0) then
+  9  raise_application_error(-20001,'Qty cannot be negative');
+ 10  end if;
+ 11  end;
+ 12  /
+
+Trigger created.
+
+SQL> INSERT INTO PRODUCT_MASTER005 VALUES (&PNO,'&DESCRIPTION',&PP,&QOH,&REORDER,&SP,&CP);
+Enter value for pno: 8
+Enter value for description: GOOD
+Enter value for pp: 20
+Enter value for qoh: -1
+Enter value for reorder: 4
+Enter value for sp: 300
+Enter value for cp: 250
+
+>> OUTPUT
+***********************************************************************************
+old   1: INSERT INTO PRODUCT_MASTER005 VALUES (&PNO,'&DESCRIPTION',&PP,&QOH,&REORDER,&SP,&CP)
+new   1: INSERT INTO PRODUCT_MASTER005 VALUES (8,'GOOD',20,-1,4,300,250)
+INSERT INTO PRODUCT_MASTER005 VALUES (8,'GOOD',20,-1,4,300,250)
+            *
+ERROR at line 1:
+ORA-20001: Qty cannot be negative
+ORA-06512: at "STUDENT.PRO_TRIG", line 6
+ORA-04088: error during execution of trigger 'STUDENT.PRO_TRIG'

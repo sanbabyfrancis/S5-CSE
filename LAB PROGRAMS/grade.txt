@@ -1,0 +1,40 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> FIND GRADE USING PROCEDURE
+
+>> PROGRAM
+***********************************************************************************
+SQL> set serveroutput on;
+SQL> create table Student(Rollno number(2), Marks number(3));
+SQL> insert into Student values(01, 78);
+SQL> insert into Student values(02, 89);
+SQL> insert into Student values(03, 99);
+SQL> create or replace procedure grade(R in number)
+  2  as
+  3  mark number(5);
+  4  grade varchar(2);
+  5  begin
+  6  select Marks into mark from Student where Rollno=R;
+  7  if mark>=100 then
+  8  grade:='A';
+  9  elsif mark>=70 and mark<100 then
+ 10  grade:='B';
+ 11  elsif mark>=50 and mark<700 then
+ 12  grade:='C';
+ 13  elsif mark<50 then
+ 14  grade:='F';
+ 15  end if;
+ 16  dbms_output.put_line('GRADE: '||grade);
+ 17  end;
+ 18  /
+
+
+>> OUTPUT
+***********************************************************************************
+Procedure created.
+
+SQL> execute grade(01);
+GRADE: B
+
+PL/SQL procedure successfully completed.

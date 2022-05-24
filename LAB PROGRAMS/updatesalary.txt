@@ -1,0 +1,33 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> UPDATE SALARY IN A TABLE BASED ON GIVEN CONDITIONS
+
+>> PROGRAM
+***********************************************************************************
+SQL> create table income(ename varchar(20), salary number(6));
+SQL> insert into income values('Ramesh', 10000);
+
+SQL> set serveroutput on;
+SQL> declare
+  2  sal number(6);
+  3  begin
+  4  select salary into sal from income where ename='Ramesh';
+  5  if sal>8000 then
+  6  sal:=sal+((20/100)*sal);
+  7  elsif sal<5000 then
+  8  sal:=sal+((5/100)*sal);
+  9  end if;
+ 10  update income set salary=sal where ename='Ramesh';
+ 11  end;
+ 12  /
+
+>> OUTPUT
+***********************************************************************************
+PL/SQL procedure successfully completed.
+
+SQL> select * from income;
+
+ENAME                    SALARY
+-------------------- ----------
+Ramesh                    12000

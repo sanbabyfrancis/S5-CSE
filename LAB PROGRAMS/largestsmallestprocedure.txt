@@ -1,0 +1,45 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> FIND LARGEST AND SMALLEST OF THREE NUMBERS USING PROCEDURE
+
+>> PROGRAM
+***********************************************************************************
+SQL> set serveroutput on;
+SQL> create or replace procedure largestsmallest(a in number, b in number, c in number)
+  2  as
+  3  largest number;
+  4  smallest number;
+  5  begin
+  6  largest:=a;
+  7  if b>largest
+  8  then
+  9  largest:=b;
+ 10  end if;
+ 11  if c>largest
+ 12  then
+ 13  largest:=c;
+ 14  end if;
+ 15  smallest:=a;
+ 16  if b<smallest
+ 17  then
+ 18  smallest:=b;
+ 19  end if;
+ 20  if c<smallest
+ 21  then
+ 22  smallest:=c;
+ 23  end if;
+ 24  dbms_output.put_line('The largest is '||largest);
+ 25  dbms_output.put_line('The smallest is '||smallest);
+ 26  end;
+ 27  /
+
+>> OUTPUT
+***********************************************************************************
+Procedure created.
+
+SQL> execute largestsmallest(2, 8, 4);
+The largest is 8
+The smallest is 2
+
+PL/SQL procedure successfully completed.

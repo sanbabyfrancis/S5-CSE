@@ -1,0 +1,95 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> ROUND ROBIN CPU SCHEDULING
+
+>> PROGRAM
+***********************************************************************************
+#include <stdio.h>
+static int front = -1, rear = -1, value, queue[100];
+struct {
+  int bt;
+  int wt;
+  int tat;
+} p[10];
+
+void enqueue(int n) {
+  if (front == -1 && rear == -1)
+    front = 0;
+  rear++;
+  queue[rear] = n;
+}
+
+int dequeue() {
+  value = queue[front];
+  front++;
+  return value;
+}
+
+void main() {
+  int i, num, outps, tq, timer = 0;
+  int totwt = 0, tottat = 0;
+  float avg_wt, avg_tat;
+  printf("Enter the number of processes: ");
+  scanf("%d", & num);
+  for (i = 0; i < num; i++) {
+    printf("Enter the burst time of P[%d]: ", i);
+    scanf("%d", & p[i].bt);
+  }
+  printf("Enter the time quanta: ");
+  scanf("%d", & tq);
+  int bst[num];
+  for (i = 0; i < num; i++) {
+    enqueue(i);
+    bst[i] = p[i].bt;
+  }
+  while (front <= rear) {
+    outps = dequeue();
+    if (p[outps].bt > tq) {
+      p[outps].bt = p[outps].bt - tq;
+      timer = timer + tq;
+    }
+    else {
+      timer = timer + p[outps].bt;
+      p[outps].bt = 0;
+    }
+    if (p[outps].bt != 0) {
+      enqueue(outps);
+    }
+    else if (p[outps].bt == 0) {
+      p[outps].tat = timer;
+      p[outps].wt = timer - bst[outps];
+    }
+  }
+
+  printf("PID\tBT\tWT\tTAT\n");
+  for (i = 0; i < num; i++) {
+    printf("%d\t%d\t%d\t%d", i, bst[i], p[i].wt, p[i].tat);
+    printf("\n");
+  }
+
+  for (i = 0; i < num; i++) {
+    totwt += p[i].wt;
+    tottat += p[i].tat;
+  }
+
+  avg_wt = (float) totwt / (float) num;
+  avg_tat = (float) tottat / (float) num;
+  printf("\nAVERAGE WT: %f\n", avg_wt);
+  printf("AVERAGE TAT: %f\n", avg_tat);
+}
+
+>> OUTPUT
+***********************************************************************************
+Enter the number of processes: 3
+Enter the burst time of P[0]: 3
+Enter the burst time of P[1]: 5
+Enter the burst time of P[2]: 2
+Enter the time quanta: 2
+PID     BT      WT      TAT
+0       3       4       7
+1       5       5       10
+2       2       4       6
+
+AVERAGE WT: 4.333333
+AVERAGE TAT: 7.666667

@@ -1,0 +1,31 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> SUM OF TWO NUMBERS
+
+>> PROGRAM
+***********************************************************************************
+SQL> set serveroutput on;
+SQL> declare
+  2  a integer;
+  3  b integer;
+  4  c integer;
+  5  begin
+  6  a:=&a;
+  7  b:=&b;
+  8  c:=a+b;
+  9  dbms_output.put_line('The sum is '||c);
+ 10  end;
+ 11  /
+
+>> OUTPUT
+***********************************************************************************
+Enter value for a: 4
+old   6: a:=&a;
+new   6: a:=4;
+Enter value for b: 3
+old   7: b:=&b;
+new   7: b:=3;
+The sum is 7
+
+PL/SQL procedure successfully completed.

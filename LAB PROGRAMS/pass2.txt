@@ -1,0 +1,201 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> PASS 2 OF TWO PASS ASSEMBLER
+
+>> PROGRAM
+***********************************************************************************
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+#include<stdlib.h>
+#include<conio.h>
+
+char t1[20],t2[20],t3[10],t4[10],address[10],label[10],opcode[10],operand[10],length[10],size[10],a[10],ad[10],symbol[10],add[10],st_addr[10];  //ch;
+int s=-1,o=-1,i,j;
+FILE *fp1,*fp2,*fp3,*fp4,*fp5,*fp6;
+
+struct SYMTAB
+{
+       char label[10];
+       char addr[10];       
+}ST[30];
+
+struct OPTAB
+{
+       char opcode[10],hexcode[10];
+}OT[30];
+
+void read_OPTAB()
+{
+    while(1)
+    {
+            o++;
+            fscanf(fp3,"%s%s",OT[o].opcode,OT[o].hexcode); 
+            if(getc(fp3)==EOF)       break;                    
+    }                  
+}
+
+void read_SYMTAB()
+{
+    while(1)
+    {
+            s++;
+            fscanf(fp2,"%s%s",ST[s].label,ST[s].addr); 
+            if(getc(fp2)==EOF)       break;                    
+    }                  
+}
+
+void read_line()
+{
+    strcpy(t1,"");strcpy(t2,"");strcpy(t3,"");strcpy(t4,"");
+    fscanf(fp1,"%s",t1);
+    if(getc(fp1)!='\n')
+    {
+     	fscanf(fp1,"%s",t2);   
+        if(getc(fp1)!='\n')
+		{      
+			fscanf(fp1,"%s",t3);   
+	        if(getc(fp1)!='\n')
+	        	fscanf(fp1,"%s",t4);
+        }   
+    }
+    if(strcmp(t1,"")!=0 && strcmp(t2,"")!=0 && strcmp(t3,"")!=0 && strcmp(t4,"")!=0 )
+    {
+               strcpy(address,t1);strcpy(label,t2);strcpy(opcode,t3); strcpy(operand,t4);            
+    }
+    else if(strcmp(t1,"")!=0 && strcmp(t2,"")!=0 && strcmp(t3,"")!=0 && strcmp(t4,"")==0 )
+    {
+               strcpy(address,t1);strcpy(label,"");strcpy(opcode,t2); strcpy(operand,t3);  
+    }
+    else if(strcmp(t1,"")!=0 && strcmp(t2,"")!=0 && strcmp(t3,"")==0 && strcmp(t4,"")==0 )
+    {
+    	if(strcmp(t1,"END")==0)
+    	{
+    		strcpy(address,"");strcpy(label,"");strcpy(opcode,t1); strcpy(operand,t2);
+		}
+        else
+        {
+        	strcpy(address,t1);strcpy(label,"");strcpy(opcode,t2); strcpy(operand,"");
+		}
+    } 
+}
+
+int main()
+{
+	fp1=fopen("Z:\\ss&mp_lab\\twopassassembler\\intermed.txt","r");
+	fp2=fopen("Z:\\ss&mp_lab\\twopassassembler\\symtab.txt","r");
+	fp3=fopen("Z:\\ss&mp_lab\\twopassassembler\\optab.txt","r");
+	fp4=fopen("Z:\\ss&mp_lab\\twopassassembler\\length.txt","r");
+	fp5=fopen("Z:\\ss&mp_lab\\twopassassembler\\assmlist.txt","w");
+	fp6=fopen("Z:\\ss&mp_lab\\twopassassembler\\objcode.txt","w");
+
+	fscanf(fp4,"%s%s",length,size);
+	read_OPTAB();
+	read_SYMTAB();
+	fscanf(fp1,"%s%s%s",label,opcode,operand);
+	strcpy(st_addr,operand);
+	if(strcmp(opcode,"START")==0)
+	{
+		fprintf(fp5,"\t%s\t%s\t%s\n",label,opcode,operand);	
+		fprintf(fp6,"H%s  00%s0000%s\n",label,operand,length);
+		fprintf(fp6,"T00%s%x",operand,atoi(size));
+		read_line();
+	}
+	while(strcmp(opcode,"END")!=0)
+	{
+		if(strcmp(opcode,"BYTE")==0)
+		{
+			fprintf(fp5,"%s\t%s\t%s\t%s\t",address,label,opcode,operand);
+			sprintf(ad,"%x",operand[2]);
+			fprintf(fp5,"%s\n",ad);
+			fprintf(fp6,"%s",ad);
+		}
+		else if(strcmp(opcode,"WORD")==0)
+		{
+			sprintf(a,"%x",atoi(operand));
+			fprintf(fp5,"%s\t%s\t%s\t%s\t00000%s\n",address,label,opcode,operand,a);
+			fprintf(fp6,"00000%s",a);
+		}
+		else if(strcmp(opcode,"RESB")==0)
+		{
+			fprintf(fp5,"%s\t%s\t%s\t%s\n",address,label,opcode,operand);
+		}
+		else if(strcmp(opcode,"RESW")==0)
+		{
+			fprintf(fp5,"%s\t%s\t%s\t%s\n",address,label,opcode,operand);
+		}	
+		else
+		{   j=0;
+			while(strcmp(opcode,OT[j].opcode)!=0)
+				j++;
+			i=0;
+			while(strcmp(operand,ST[i].label)!=0)
+				i++;
+			fprintf(fp5,"%s\t%s\t%s\t%s\t%s%s\n",address,label,opcode,operand,OT[j].hexcode,ST[i].addr);
+			fprintf(fp6,"%s%s",OT[j].hexcode,ST[i].addr);
+		}
+		read_line();
+	}
+	fprintf(fp5,"\t%s\t%s\t%s",label,opcode,operand);
+	fprintf(fp6,"\nE^00%s",st_addr);
+	getch();
+}
+
+>> OUTPUT
+***********************************************************************************
+INPUT FILES:
+
+optab.txt
+
+LDA	00
+STA	0C
+LDCH	50
+STCH	54
+
+intermed.txt
+
+	COPY	START	2000
+2000	FIRST	LDA	FIVE
+2003		STA	ALPHA
+2006		LDCH	CHARZ
+2009		STCH	C1
+200c	ALPHA	RESW	3
+2015	FIVE	WORD	5
+2018	CHARZ	BYTE	C'Z'
+2019	C1	RESB	2
+		END	FIRST
+
+symtab.txt
+
+FIRST	2000
+ALPHA	200c
+FIVE	2015
+CHARZ	2018
+C1	2019
+
+length.txt
+
+1b
+10
+
+OUTPUT FILES:
+
+assmlist.txt
+
+	COPY	START	2000
+2000	FIRST	LDA	FIVE	002015
+2003		STA	ALPHA	0C200c
+2006		LDCH	CHARZ	502018
+2009		STCH	C1	542019
+200c	ALPHA	RESW	3
+2015	FIVE	WORD	5	000005
+2018	CHARZ	BYTE	C'Z'	5a
+2019	C1	RESB	2
+		END	FIRST
+
+objcode.txt
+
+HCOPY  00200000001b
+T002000a0020150C200c5020185420190000055a
+E^002000

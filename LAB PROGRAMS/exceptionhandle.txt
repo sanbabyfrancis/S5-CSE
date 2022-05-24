@@ -1,0 +1,44 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> EXCEPTION HANDLING
+
+>> PROGRAM
+***********************************************************************************
+SQL> create table product(pno number(2), pname varchar(20), sp number(5), cp number(5));
+
+SQL> declare
+  2  nme varchar(20);
+  3  exp exception;
+  4  cursor pdt is select * from product;
+  5  begin
+  6  for i in pdt
+  7  loop
+  8  if i.sp>i.cp then
+  9  nme:=i.pname;
+ 10  raise exp;
+ 11  end if;
+ 12  end loop;
+ 13  exception
+ 14  when exp then
+ 15  dbms_output.put_line('Selling Price > Cost Price for '||nme);
+ 16  end;
+ 17  /
+
+>> OUTPUT
+***********************************************************************************
+Selling Price > Cost Price for book
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from product;
+
+       PNO PNAME                        SP         CP
+---------- -------------------- ---------- ----------
+         1 book                        100         90
+         2 biriyani                    200        150
+         3 pencil                        3          5
+         4 shawarma                    180        150
+         5 chicken65                   250        260
+
+5 rows selected.

@@ -1,0 +1,41 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> PASS OR FAIL USING CURSOR
+
+>> PROGRAM
+***********************************************************************************
+SQL> declare
+  2  total_mark number:=0;
+  3  cursor c_students is select * from student_15;
+  4  rw c_students%rowtype;
+  5  begin
+  6  open c_students;
+  7  loop
+  8  fetch c_students into rw;
+  9  total_mark:=rw.mark1+rw.mark2;
+ 10  if((total_mark>=80) and (rw.mark1>=35) and (rw.mark2>=35)) then
+ 11  insert into studentpass_15 values (rw.reg_no, rw.name,rw.mark1, rw.mark2);
+ 12  else
+ 13  insert into studentfail_15 values (rw.reg_no, rw.name,rw.mark1, rw.mark2);
+ 14  end if;
+ 15  exit when c_students%notfound;
+ 16  end loop;
+ 17  close c_students;
+ 18 /
+
+>> OUTPUT
+***********************************************************************************
+SQL> select * from studentpass_15;
+
+    REG_NO NAME            MARK1      MARK2
+---------- ---------- ---------- ----------
+       102 RASHIKA            42         39
+       103 VISHNU             46         44
+
+SQL> select * from studentfail_15;
+
+    REG_NO NAME            MARK1      MARK2
+---------- ---------- ---------- ----------
+       104 DEVIKA             40         32
+       105 NIVYA              34         30

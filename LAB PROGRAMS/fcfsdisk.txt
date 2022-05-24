@@ -1,0 +1,38 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> FIRST COME FIRST SERVE DISK SCHEDULING
+
+>> PROGRAM
+***********************************************************************************
+#include <stdio.h> 
+void main() {
+	int i, num, size, diff, sum=0;
+	printf("Enter the number of locations: ");
+	scanf("%d", &size);
+	int arr[size];
+	printf("Enter the locations: ");
+	for(i=0; i<size; i++) {
+		scanf("%d", &arr[i]);
+	}
+	for (i=1; i<size; i++) {
+		diff=arr[i]-arr[i-1];
+		if (diff<0) {
+			sum=sum+diff*-1;
+		}
+		else {
+			sum=sum+diff;
+		}
+	}
+	printf("The total track movement: %d", sum);
+}
+
+>> OUTPUT
+***********************************************************************************
+Enter the number of locations: 5
+Enter the locations: 45
+34
+23
+54
+78
+The total track movement: 77

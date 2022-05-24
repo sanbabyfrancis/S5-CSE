@@ -1,0 +1,102 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+DATE:08-03-2022
+
+>> TO IMPLEMENT MACRO
+
+>> PROGRAM
+***********************************************************************************
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+FILE *f1,*f2,*f3,*f5;
+int len,i,pos=1;
+char arg[20],mne[20],opnd[20],la[20],name[20],mne1[20],opnd1[20],pos1,pos2[10],stringpos1[10];
+f1=fopen("Z:\\macinput.txt","r");
+f2=fopen("Z:\\namtab.txt","w+");
+f3=fopen("Z:\\deftab.txt","w+");
+f5=fopen("Z:\\macop.txt","w+");
+fscanf(f1,"%s%s%s",la,mne,opnd);
+while(strcmp(mne,"END")!=0)
+{
+if(strcmp(mne,"MACRO")==0)
+{
+fprintf(f2,"%s\n",la);
+fseek(f2,SEEK_SET,0);
+fprintf(f3,"%s\t%s\n",la,mne);
+fscanf(f1,"%s%s%s",la,mne,opnd);
+while(strcmp(mne,"MEND")!=0)
+{
+fprintf(f3,"%s\t%s\n",mne,opnd);
+fscanf(f1,"%s%s%s",la,mne,opnd);
+}
+fprintf(f3,"%s",mne);
+}
+else
+{
+fscanf(f2,"%s",name);
+if(strcmp(mne,name)==0)
+{
+len=strlen(opnd);
+fseek(f3,SEEK_SET,0);
+fscanf(f3,"%s%s",mne1,opnd1);
+fprintf(f5,".\t%s\t%s\n",mne1,opnd);
+fscanf(f3,"%s%s",mne1,opnd1);
+while(strcmp(mne1,"MEND")!=0)
+{
+//fprintf(f5,"-\t%s\t%s\n",mne1,arg);
+
+//else
+fprintf(f5,"-\t%s\t%s\n",mne1,opnd1);
+fscanf(f3,"%s%s",mne1,opnd1);
+}
+}
+else
+fprintf(f5,"%s\t%s\t%s\n",la,mne,opnd);
+}
+fscanf(f1,"%s%s%s",la,mne,opnd);
+}
+fprintf(f5,"%s\t%s\t%s",la,mne,opnd);
+fclose(f1);
+fclose(f2);
+fclose(f3);
+fclose(f5);
+return 0;
+}
+ 
+>> OUTPUT
+***********************************************************************************
+INPUT
+
+EX1 MACRO -
+- LDA A
+- STA B
+- MEND -
+SAMPLE START 1000
+- EX1 -
+N1 RESW 1
+N2 RESW 1
+- END -
+
+OPTAB
+
+SAMPLE	START	1000
+.	EX1	-
+-	LDA	A
+-	STA	B
+N1	RESW	1
+N2	RESW	1
+-	END	-
+
+DEFTAB
+
+EX1	MACRO
+LDA	A
+STA	B
+MEND
+
+NAMTAB
+
+EX1

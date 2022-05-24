@@ -1,0 +1,46 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> PRINT SALARY USING FUNCTION
+
+>> PROGRAM
+***********************************************************************************
+SQL> create table employeetable(id number(3), ename varchar(20), salary number(10), job varchar(20));
+
+SQL> create or replace function salary(empid in number) return number
+  2  as
+  3  sal number;
+  4  begin
+  5  select salary into sal from employeetable where id=empid;
+  6  return sal;
+  7  end;
+  8  /
+
+Function created.
+
+SQL> declare
+  2  amount number;
+  3  employeeid number;
+  4  begin
+  5  employeeid:=&employeeid;
+  6  amount:=salary(employeeid);
+  7  dbms_output.put_line('The salary is '||amount);
+  8  end;
+  9  /
+
+>> OUTPUT
+***********************************************************************************
+Enter value for employeeid: 1
+old   5: employeeid:=&employeeid;
+new   5: employeeid:=1;
+The salary is 10000
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from employeetable;
+
+        ID ENAME                    SALARY JOB
+---------- -------------------- ---------- --------------------
+         1 john                      10000 clerk
+         2 soyal                     50000 programmer
+         3 susan                     75000 professor

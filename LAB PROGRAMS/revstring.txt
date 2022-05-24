@@ -1,0 +1,33 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> REVERSE A STRING
+
+>> PROGRAM
+***********************************************************************************
+SQL> set serveroutput on;
+SQL> declare
+  2  s varchar(20);
+  3  r varchar(20);
+  4  v varchar(2);
+  5  l number:=0;
+  6  begin
+  7  s:='&s';
+  8  l:=length(s);
+  9  while l>0 loop
+ 10  v:=substr(s,l,1);
+ 11  r:=concat(r,v);
+ 12  l:=l-1;
+ 13  end loop;
+ 14  dbms_output.put_line(r);
+ 15  end;
+ 16  /
+
+>> OUTPUT
+***********************************************************************************
+Enter value for s: hello world
+old   7: s:='&s';
+new   7: s:='hello world';
+dlrow olleh
+
+PL/SQL procedure successfully completed.

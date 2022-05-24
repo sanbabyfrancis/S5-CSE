@@ -1,0 +1,41 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> TOTAL SALARY USING CURSOR
+
+>> PROGRAM
+***********************************************************************************
+SQL> declare
+  2  c_id employee57.id%type;
+  3  c_name employee57.name%type;
+  4  c_salary employee57.salary%type;
+  5  total_salary number:=0;
+  6  cursor c_customers is select id, name, salary from employee57;
+  7  begin
+  8  open c_customers;
+  9  loop
+ 10  fetch c_customers into c_id, c_name, c_salary;
+ 11  exit when c_customers%notfound;
+ 12  dbms_output.put_line(c_id || ' ' || c_name || ' ' || c_salary);
+ 13  total_salary:=total_salary+c_salary;
+ 14  end loop;
+ 15  dbms_output.put_line('Total salary: ' || total_salary);
+ 16  close c_customers;
+ 17 end;
+ 18 /
+
+>> OUTPUT
+***********************************************************************************
+B104 HARI 300000
+B105 SIMON 380000
+B106 SIVA 390000
+B107 SANTHAN 700000
+B108 RICHARD 500000
+B109 LEO 300000
+B110 JOE 200000
+B111 JOHAN 100000
+B114 MILLEN 400000
+B144 HARRY 450000
+Total salary: 3720000
+
+PL/SQL procedure successfully completed.

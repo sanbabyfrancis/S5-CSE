@@ -1,0 +1,42 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> SCAN DISK SCHEDULING
+
+>> PROGRAM
+***********************************************************************************
+#include <stdio.h>
+void main() {
+    int size, head, num, i, smallest, head_movement;
+    printf("Enter the total number of tracks: ");
+    scanf("%d", &size);
+    printf("Enter the initial head track: ");
+    scanf("%d", &head);
+    printf("Enter the number of requests (except head track): ");
+    scanf("%d", &num);
+    int arr[num];
+    printf("Enter the requests (except head track): ");
+    for (i=0; i<num; i++) {
+        scanf("%d", &arr[i]);
+    }
+    smallest=1000;
+    for (i=0; i<num; i++) {
+        if(arr[i]<smallest) {
+            smallest=arr[i];
+        }
+    }
+    head_movement=(size-1)-head;
+    head_movement=head_movement+(size-1)-smallest;
+    printf("The total head movement is: %d\n", head_movement);
+}
+
+>> OUTPUT
+***********************************************************************************
+Enter the total number of tracks: 200
+Enter the initial head track: 50
+Enter the number of requests (except head track): 4
+Enter the requests (except head track): 56
+34
+27
+76
+The total head movement is: 321

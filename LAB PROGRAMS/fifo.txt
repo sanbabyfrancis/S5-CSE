@@ -1,0 +1,63 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> FIRST IN FIRST OUT PAGE REPLACEMENT
+
+>> PROGRAM
+***********************************************************************************
+#include<stdio.h>
+int main() {
+  int i, j, n, a[50], frame[10], no, k, avail, count = 0;
+  
+  printf("Enter the number of pages: ");
+  scanf("%d", & n);
+  
+  printf("Enter the page number: \n");
+  for (i = 1; i <= n; i++)
+    scanf("%d", & a[i]);
+    
+  printf("Enter the number of frames: ");
+  scanf("%d", & no);
+  
+  for (i = 0; i < no; i++)
+    frame[i] = -1;
+    
+  j = 0;
+  
+  printf("\nREF_STR\tPAGE_FRAME\n");
+  for (i = 1; i <= n; i++) {
+    printf("%d\t", a[i]);
+    avail = 0;
+    for (k = 0; k < no; k++)
+      if (frame[k] == a[i])
+        avail = 1;
+    if (avail == 0) {
+      frame[j] = a[i];
+      j = (j + 1) % no;
+      count++;
+      for (k = 0; k < no; k++)
+        printf("%d\t", frame[k]);
+    }
+    printf("\n");
+  }
+  
+  printf("The number of page fault: %d", count);
+  return 0;
+}
+
+>> OUTPUT
+***********************************************************************************
+Enter the number of pages: 4
+Enter the page number:
+3
+7
+4
+5
+Enter the number of frames: 3
+
+REF_STR PAGE_FRAME
+3       3       -1      -1
+7       3       7       -1
+4       3       7       4
+5       5       7       4
+The number of page fault: 4

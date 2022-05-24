@@ -1,0 +1,56 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> LARGEST AND SMALLEST OF THREE NUMBERS
+
+>> PROGRAM
+***********************************************************************************
+SQL> set serveroutput on;
+SQL> declare
+  2  a integer;
+  3  b integer;
+  4  c integer;
+  5  largest integer;
+  6  smallest integer;
+  7  begin
+  8  a:=&a;
+  9  b:=&b;
+ 10  c:=&c;
+ 11  largest:=a;
+ 12  if b>largest
+ 13  then
+ 14  largest:=b;
+ 15  end if;
+ 16  if c>largest
+ 17  then
+ 18  largest:=c;
+ 19  end if;
+ 20  smallest:=a;
+ 21  if b<smallest
+ 22  then
+ 23  smallest:=b;
+ 24  end if;
+ 25  if c<smallest
+ 26  then
+ 27  smallest:=c;
+ 28  end if;
+ 29  dbms_output.put_line('The largest is '||largest);
+ 30  dbms_output.put_line('The smallest is '||smallest);
+ 31  end;
+ 32  /
+
+>> OUTPUT
+***********************************************************************************
+Enter value for a: 2
+old   8: a:=&a;
+new   8: a:=2;
+Enter value for b: 3
+old   9: b:=&b;
+new   9: b:=3;
+Enter value for c: 4
+old  10: c:=&c;
+new  10: c:=4;
+The largest is 4
+The smallest is 2
+
+PL/SQL procedure successfully completed.

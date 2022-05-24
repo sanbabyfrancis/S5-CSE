@@ -1,0 +1,53 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> FIBONACCI SERIES BELOW A GIVEN NUMBER
+
+>> PROGRAM
+***********************************************************************************
+SQL> set serveroutput on;
+SQL> declare
+  2  first integer:=0;
+  3  second integer:=1;
+  4  num integer;
+  5  temp integer;
+  6  begin
+  7  num:=&num;
+  8  if num=1
+  9  then
+ 10  dbms_output.put_line(first);
+ 11  end if;
+ 12  if num=2
+ 13  then
+ 14  dbms_output.put_line(first);
+ 15  dbms_output.put_line(second);
+ 16  end if;
+ 17  if num>2
+ 18  then
+ 19  dbms_output.put_line(first);
+ 20  dbms_output.put_line(second);
+ 21  num:=num-2;
+ 22  while num>0 loop
+ 23  temp:=first+second;
+ 24  first:=second;
+ 25  second:=temp;
+ 26  dbms_output.put_line(second);
+ 27  num:=num-1;
+ 28  end loop;
+ 29  end if;
+ 30  end;
+ 31  /
+
+>> OUTPUT
+***********************************************************************************
+Enter value for num: 6
+old   7: num:=&num;
+new   7: num:=6;
+0
+1
+1
+2
+3
+5
+
+PL/SQL procedure successfully completed.

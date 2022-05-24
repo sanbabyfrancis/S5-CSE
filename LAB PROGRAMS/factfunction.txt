@@ -1,0 +1,41 @@
+NAME: SAN BABY FRANCIS				BRANCH: CS
+SEMESTER: S5					ROLL NO: 52
+
+>> FACTORIAL USING FUNCTION
+
+>> PROGRAM
+***********************************************************************************
+SQL> create or replace function factorial(fnum in number) return number
+  2  as
+  3  fact number:=1;
+  4  fnum2 number:=0;
+  5  begin
+  6  fnum2:=fnum;
+  7  while fnum2>0 loop
+  8  fact:=fact*fnum2;
+  9  fnum2:=fnum2-1;
+ 10  end loop;
+ 11  return fact;
+ 12  end;
+ 13  /
+
+Function created.
+
+SQL> declare
+  2  num1 number;
+  3  fact_result number;
+  4  begin
+  5  num1:=&num1;
+  6  fact_result:=factorial(num1);
+  7  dbms_output.put_line('The factorial is '||fact_result);
+  8  end;
+  9  /
+
+>> OUTPUT
+***********************************************************************************
+Enter value for num1: 4
+old   5: num1:=&num1;
+new   5: num1:=4;
+The factorial is 24
+
+PL/SQL procedure successfully completed.

@@ -1,0 +1,174 @@
+/****************************************************************************************************/
+
+/*           NAME     : SAN BABY FRANCIS
+
+/*           CLASS    : S5 CSE A
+
+/*           ROLL NO  : 52
+
+/*           DATE     : 25/2/2022
+       
+                                        STRING SEARCH
+
+/****************************************************************************************************
+PROGRAM
+
+DATA SEGMENT  
+
+    MSG1 DB  0AH,0DH,"ENTER THE STRING:$"
+
+    MSG2 DB  0AH,0DH,"ENTER CHARACTER TO BE SEARCHED :$"  
+
+    MSG3 DB  0AH,0DH,"CHARACTER FOUND :$"  
+
+    MSG4 DB  0AH,0DH,"CHARACTER NOT FOUND :$"
+
+    STR DB 06 DUP (?)  
+
+    LEN DB 04H
+
+    DATA ENDS
+
+CODE SEGMENT
+
+    ASSUME CS:CODE,DS:DATA
+
+    START:   
+
+    
+
+    MOV AX,DATA
+
+    MOV DS,AX
+
+    
+
+    MOV AH,09H
+
+    LEA DX,MSG1
+
+    INT 21H
+
+    
+
+    LEA SI,STR   
+
+    MOV CL,LEN
+
+    
+
+FIRST:     
+
+    
+
+    MOV AH,01H 
+
+    INT 21H 
+
+    MOV [SI],AL 
+
+    INC SI
+
+    DEC CL
+
+    JNZ FIRST
+
+    
+
+    
+
+    MOV AH,09H
+
+    LEA DX,MSG2
+
+    INT 21H 
+
+    
+
+    
+
+    MOV AH,01H 
+
+    INT 21H 
+
+    MOV CH,AL 
+
+    
+
+    LEA SI,STR
+
+    MOV CL,LEN
+
+    
+
+SECOND:CMP CH,[SI]
+
+    JZ NXT
+
+    INC SI
+
+    DEC CL
+
+    JNZ SECOND 
+
+    
+
+    
+
+    MOV AH,09H
+
+    LEA DX,MSG4
+
+    INT 21H
+
+    
+
+    MOV AH,4CH
+
+    INT 21H
+
+    
+
+NXT:
+
+    MOV AH,09H
+
+    LEA DX,MSG3
+
+    INT 21H
+
+    
+
+    
+
+    
+
+    MOV AH,4CH
+
+    INT 21H
+
+    
+
+CODE ENDS
+
+END START
+
+
+
+OUTPUT
+
+
+
+ENTER THE STRING : micr
+
+ENTER CHARACTER TO BE SEARCHED : o
+
+CHARACTER NOT FOUND:
+
+
+
+ENTER THE STRING : appp
+
+ENTER CHARACTER TO BE SEARCHED : p
+
+CHARACTER  FOUND:
